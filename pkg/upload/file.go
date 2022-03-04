@@ -1,12 +1,14 @@
 package upload
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"os"
 	"path"
 	"strings"
+	"time"
 	"upload/pkg/util"
 )
 
@@ -17,7 +19,7 @@ const TypeImage FileType = iota + 1
 func GetFileName(name string) string {
 	ext := GetFileExt(name)
 	fileName := strings.TrimSuffix(name, ext)
-	fileName = util.EncodeMD5(fileName)
+	fileName = util.EncodeMD5(fileName + fmt.Sprintf("%v", time.Now().Second()))
 
 	return fileName + ext
 }
